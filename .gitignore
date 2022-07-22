@@ -1,7 +1,11 @@
+# Сайт-каталог по упорядочению всякой всячины (для коллекционеров)
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+
+# For PyCharm
+.idea
 
 # C extensions
 *.so
