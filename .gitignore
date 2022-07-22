@@ -6,6 +6,9 @@ __pycache__/
 # For PyCharm
 .idea
 
+# Specific for project lock (мои секретные данные, ключи, проли и т.п.)
+my_secret.py
+
 # C extensions
 *.so
 
