@@ -2,7 +2,8 @@
 from django.contrib import admin
 from django.db import models
 from django.forms import TextInput, Textarea
-from web.models import TbContentItem
+from taggit.managers import TaggableManager
+from web.models import TbContentItem, TbImage
 from web.add_function import safe_html_special_symbols
 
 
@@ -16,7 +17,8 @@ class AdminContent(admin.ModelAdmin):
     list_editable = ('bContentPublish', )
     # настройка длины поля TextInput в админке
     formfield_overrides = {
-        models.CharField: {'widget': TextInput(attrs={'size': '100%'})},
+        models.CharField: {'widget': TextInput(attrs={'size': '80%'})},
+        TaggableManager: {'widget': TextInput(attrs={'size': '80%'})},
         # models.TextField: {'widget': Textarea(attrs={'rows': 4, 'cols': 40})},
     }
     # Настройка страницы редактирования
@@ -47,4 +49,20 @@ class AdminContent(admin.ModelAdmin):
         return ", ".join(o.name for o in obj.tags.all())
 
 
+class AdminImage(admin.ModelAdmin):
+    list_display = ('id', 'flrImage', 'iSort', 'tag_list', 'bImagePublish')
+    list_display_links = ('id', 'flrImage')
+    list_editable = ('bImagePublish', )
+    formfield_overrides = {
+        TaggableManager: {'widget': TextInput(attrs={'size': '80%'})},
+    }
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('tags')
+
+    def tag_list(self, obj):
+        return ", ".join(o.name for o in obj.tags.all())
+
+
 admin.site.register(TbContentItem, AdminContent)
+admin.site.register(TbImage, AdminImage)

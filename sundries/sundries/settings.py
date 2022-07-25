@@ -149,6 +149,7 @@ THUMBNAIL_TRANSPARENCY_EXTENSION: str = 'png'
 THUMBNAIL_WIDGET_OPTIONS: dict = {'size': (64, 64)}
 
 # настройки для WYSIWYG-редактора CKEditor в админке
+FILER_SUBJECT_LOCATION_IMAGE_DEBUG = True
 CKEDITOR_UPLOAD_PATH: str = "uploads/"
 CKEDITOR_BASEPATH: str = "/static/ckeditor/ckeditor/"
 CKEDITOR_FILENAME_GENERATOR: str = 'utils.get_filename'
@@ -194,7 +195,6 @@ CKEDITOR_CONFIGS: dict = {
     },
 }
 
-FILER_SUBJECT_LOCATION_IMAGE_DEBUG = True
 FILER_CANONICAL_URL = 'sharing/'
 
 

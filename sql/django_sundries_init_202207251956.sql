@@ -1,7 +1,7 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio 2020 for MySQL, Версия 9.0.567.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 25.07.2022 18:26:57
+-- Дата скрипта: 25.07.2022 19:56:07
 -- Версия сервера: 10.5.10
 -- Версия клиента: 4.1
 --
@@ -92,6 +92,11 @@ DROP TABLE IF EXISTS easy_thumbnails_source;
 DROP TABLE IF EXISTS auth_user_user_permissions;
 
 --
+-- Удалить таблицу `auth_permission`
+--
+DROP TABLE IF EXISTS auth_permission;
+
+--
 -- Удалить таблицу `django_admin_log`
 --
 DROP TABLE IF EXISTS django_admin_log;
@@ -102,14 +107,14 @@ DROP TABLE IF EXISTS django_admin_log;
 DROP TABLE IF EXISTS filer_clipboarditem;
 
 --
--- Удалить таблицу `filer_clipboard`
---
-DROP TABLE IF EXISTS filer_clipboard;
-
---
 -- Удалить таблицу `filer_image`
 --
 DROP TABLE IF EXISTS filer_image;
+
+--
+-- Удалить таблицу `web_tbcontentitem_kImages`
+--
+DROP TABLE IF EXISTS web_tbcontentitem_kImages;
 
 --
 -- Удалить таблицу `web_tbimage`
@@ -120,6 +125,16 @@ DROP TABLE IF EXISTS web_tbimage;
 -- Удалить таблицу `filer_file`
 --
 DROP TABLE IF EXISTS filer_file;
+
+--
+-- Удалить таблицу `django_content_type`
+--
+DROP TABLE IF EXISTS django_content_type;
+
+--
+-- Удалить таблицу `filer_clipboard`
+--
+DROP TABLE IF EXISTS filer_clipboard;
 
 --
 -- Удалить таблицу `filer_folder`
@@ -137,69 +152,9 @@ DROP TABLE IF EXISTS web_tbcontentitem;
 DROP TABLE IF EXISTS auth_user;
 
 --
--- Удалить таблицу `auth_permission`
---
-DROP TABLE IF EXISTS auth_permission;
-
---
--- Удалить таблицу `django_content_type`
---
-DROP TABLE IF EXISTS django_content_type;
-
---
 -- Установка базы данных по умолчанию
 --
 USE django_sundries;
-
---
--- Создать таблицу `django_content_type`
---
-CREATE TABLE django_content_type (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  app_label varchar(100) NOT NULL,
-  model varchar(100) NOT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB,
-AUTO_INCREMENT = 23,
-AVG_ROW_LENGTH = 1489,
-CHARACTER SET utf8,
-COLLATE utf8_unicode_ci;
-
---
--- Создать индекс `django_content_type_app_label_model_76bd3d3b_uniq` для объекта типа таблица `django_content_type`
---
-ALTER TABLE django_content_type
-ADD UNIQUE INDEX django_content_type_app_label_model_76bd3d3b_uniq (app_label, model);
-
---
--- Создать таблицу `auth_permission`
---
-CREATE TABLE auth_permission (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  name varchar(255) NOT NULL,
-  content_type_id int(11) NOT NULL,
-  codename varchar(100) NOT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB,
-AUTO_INCREMENT = 90,
-AVG_ROW_LENGTH = 184,
-CHARACTER SET utf8,
-COLLATE utf8_unicode_ci;
-
---
--- Создать индекс `auth_permission_content_type_id_codename_01ab375a_uniq` для объекта типа таблица `auth_permission`
---
-ALTER TABLE auth_permission
-ADD UNIQUE INDEX auth_permission_content_type_id_codename_01ab375a_uniq (content_type_id, codename);
-
---
--- Создать внешний ключ
---
-ALTER TABLE auth_permission
-ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id)
-REFERENCES django_content_type (id);
 
 --
 -- Создать таблицу `auth_user`
@@ -251,10 +206,10 @@ CHARACTER SET utf8,
 COLLATE utf8_unicode_ci;
 
 --
--- Создать индекс `web_tbcontentitem_szContentSlug_bfa87e94_uniq` для объекта типа таблица `web_tbcontentitem`
+-- Создать индекс `szContentSlug` для объекта типа таблица `web_tbcontentitem`
 --
 ALTER TABLE web_tbcontentitem
-ADD UNIQUE INDEX web_tbcontentitem_szContentSlug_bfa87e94_uniq (szContentSlug);
+ADD UNIQUE INDEX szContentSlug (szContentSlug);
 
 --
 -- Создать внешний ключ
@@ -324,6 +279,48 @@ ADD CONSTRAINT filer_folder_parent_id_308aecda_fk_filer_folder_id FOREIGN KEY (p
 REFERENCES filer_folder (id);
 
 --
+-- Создать таблицу `filer_clipboard`
+--
+CREATE TABLE filer_clipboard (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  user_id int(11) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB,
+AUTO_INCREMENT = 2,
+AVG_ROW_LENGTH = 16384,
+CHARACTER SET utf8,
+COLLATE utf8_unicode_ci;
+
+--
+-- Создать внешний ключ
+--
+ALTER TABLE filer_clipboard
+ADD CONSTRAINT filer_clipboard_user_id_b52ff0bc_fk_auth_user_id FOREIGN KEY (user_id)
+REFERENCES auth_user (id);
+
+--
+-- Создать таблицу `django_content_type`
+--
+CREATE TABLE django_content_type (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  app_label varchar(100) NOT NULL,
+  model varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB,
+AUTO_INCREMENT = 23,
+AVG_ROW_LENGTH = 1489,
+CHARACTER SET utf8,
+COLLATE utf8_unicode_ci;
+
+--
+-- Создать индекс `django_content_type_app_label_model_76bd3d3b_uniq` для объекта типа таблица `django_content_type`
+--
+ALTER TABLE django_content_type
+ADD UNIQUE INDEX django_content_type_app_label_model_76bd3d3b_uniq (app_label, model);
+
+--
 -- Создать таблицу `filer_file`
 --
 CREATE TABLE filer_file (
@@ -378,7 +375,6 @@ CREATE TABLE web_tbimage (
   iSort int(11) NOT NULL,
   dtImageTimeStamp datetime(6) NOT NULL,
   flrImage_id int(11) DEFAULT NULL,
-  kContentItem_id int(11) DEFAULT NULL,
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
@@ -399,11 +395,37 @@ ADD CONSTRAINT web_tbimage_flrImage_id_ad414bbe_fk_filer_file_id FOREIGN KEY (fl
 REFERENCES filer_file (id);
 
 --
+-- Создать таблицу `web_tbcontentitem_kImages`
+--
+CREATE TABLE web_tbcontentitem_kImages (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  tbcontentitem_id int(11) NOT NULL,
+  tbimage_id int(11) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB,
+CHARACTER SET utf8,
+COLLATE utf8_unicode_ci;
+
+--
+-- Создать индекс `web_tbcontentitem_kImage_tbcontentitem_id_tbimage_0d568e1d_uniq` для объекта типа таблица `web_tbcontentitem_kImages`
+--
+ALTER TABLE web_tbcontentitem_kImages
+ADD UNIQUE INDEX web_tbcontentitem_kImage_tbcontentitem_id_tbimage_0d568e1d_uniq (tbcontentitem_id, tbimage_id);
+
+--
 -- Создать внешний ключ
 --
-ALTER TABLE web_tbimage
-ADD CONSTRAINT web_tbimage_kContentItem_id_cacaa96a_fk_web_tbcontentitem_id FOREIGN KEY (kContentItem_id)
+ALTER TABLE web_tbcontentitem_kImages
+ADD CONSTRAINT web_tbcontentitem_kI_tbcontentitem_id_144d2bd4_fk_web_tbcon FOREIGN KEY (tbcontentitem_id)
 REFERENCES web_tbcontentitem (id);
+
+--
+-- Создать внешний ключ
+--
+ALTER TABLE web_tbcontentitem_kImages
+ADD CONSTRAINT web_tbcontentitem_kImages_tbimage_id_78cbceca_fk_web_tbimage_id FOREIGN KEY (tbimage_id)
+REFERENCES web_tbimage (id);
 
 --
 -- Создать таблицу `filer_image`
@@ -431,25 +453,6 @@ COLLATE utf8_unicode_ci;
 ALTER TABLE filer_image
 ADD CONSTRAINT filer_image_file_ptr_id_3e21d4f0_fk_filer_file_id FOREIGN KEY (file_ptr_id)
 REFERENCES filer_file (id);
-
---
--- Создать таблицу `filer_clipboard`
---
-CREATE TABLE filer_clipboard (
-  id int(11) NOT NULL AUTO_INCREMENT,
-  user_id int(11) NOT NULL,
-  PRIMARY KEY (id)
-)
-ENGINE = INNODB,
-CHARACTER SET utf8,
-COLLATE utf8_unicode_ci;
-
---
--- Создать внешний ключ
---
-ALTER TABLE filer_clipboard
-ADD CONSTRAINT filer_clipboard_user_id_b52ff0bc_fk_auth_user_id FOREIGN KEY (user_id)
-REFERENCES auth_user (id);
 
 --
 -- Создать таблицу `filer_clipboarditem`
@@ -509,6 +512,35 @@ REFERENCES django_content_type (id);
 ALTER TABLE django_admin_log
 ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id)
 REFERENCES auth_user (id);
+
+--
+-- Создать таблицу `auth_permission`
+--
+CREATE TABLE auth_permission (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(255) NOT NULL,
+  content_type_id int(11) NOT NULL,
+  codename varchar(100) NOT NULL,
+  PRIMARY KEY (id)
+)
+ENGINE = INNODB,
+AUTO_INCREMENT = 90,
+AVG_ROW_LENGTH = 184,
+CHARACTER SET utf8,
+COLLATE utf8_unicode_ci;
+
+--
+-- Создать индекс `auth_permission_content_type_id_codename_01ab375a_uniq` для объекта типа таблица `auth_permission`
+--
+ALTER TABLE auth_permission
+ADD UNIQUE INDEX auth_permission_content_type_id_codename_01ab375a_uniq (content_type_id, codename);
+
+--
+-- Создать внешний ключ
+--
+ALTER TABLE auth_permission
+ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id)
+REFERENCES django_content_type (id);
 
 --
 -- Создать таблицу `auth_user_user_permissions`
@@ -884,10 +916,21 @@ CREATE TABLE django_migrations (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 43,
-AVG_ROW_LENGTH = 390,
+AUTO_INCREMENT = 42,
+AVG_ROW_LENGTH = 399,
 CHARACTER SET utf8,
 COLLATE utf8_unicode_ci;
+
+-- 
+-- Вывод данных для таблицы auth_user
+--
+INSERT INTO auth_user VALUES
+(1, 'pbkdf2_sha256$320000$udVohP1kvoTSOvlcJkKRK9$yxD429iiQx2mo+XBMgSZMFcUMizEcMEQpFO0/1rOkuU=', '2022-07-25 16:55:08.104485', 1, 'e-serg', '', '', 'erjemin@gmail.com', 1, 1, '2022-07-25 16:55:05.092468');
+
+-- 
+-- Вывод данных для таблицы filer_folder
+--
+-- Таблица django_sundries.filer_folder не содержит данных
 
 -- 
 -- Вывод данных для таблицы django_content_type
@@ -911,21 +954,25 @@ INSERT INTO django_content_type VALUES
 (6, 'sessions', 'session'),
 (17, 'taggit', 'tag'),
 (18, 'taggit', 'taggeditem'),
-(20, 'web', 'rutag'),
-(21, 'web', 'rutaggeditem'),
-(19, 'web', 'tbcontentitem'),
-(22, 'web', 'tbimage');
+(19, 'web', 'rutag'),
+(20, 'web', 'rutaggeditem'),
+(22, 'web', 'tbcontentitem'),
+(21, 'web', 'tbimage');
 
 -- 
--- Вывод данных для таблицы auth_user
+-- Вывод данных для таблицы filer_file
 --
-INSERT INTO auth_user VALUES
-(1, 'pbkdf2_sha256$320000$9iq3hntn4lgfga47cmTKSY$4CyRtTIy8yZcBYXJrZzxgzUgdH0fDSx7P1F1UdhF0D8=', '2022-07-25 15:16:49.972612', 1, 'e-serg', '', '', 'erjemin@gmail.com', 1, 1, '2022-07-25 15:16:47.05266');
+-- Таблица django_sundries.filer_file не содержит данных
 
 -- 
 -- Вывод данных для таблицы easy_thumbnails_source
 --
 -- Таблица django_sundries.easy_thumbnails_source не содержит данных
+
+-- 
+-- Вывод данных для таблицы web_tbimage
+--
+-- Таблица django_sundries.web_tbimage не содержит данных
 
 -- 
 -- Вывод данных для таблицы web_tbcontentitem
@@ -938,19 +985,10 @@ INSERT INTO auth_user VALUES
 -- Таблица django_sundries.taggit_tag не содержит данных
 
 -- 
--- Вывод данных для таблицы filer_folder
---
--- Таблица django_sundries.filer_folder не содержит данных
-
--- 
--- Вывод данных для таблицы filer_file
---
--- Таблица django_sundries.filer_file не содержит данных
-
--- 
 -- Вывод данных для таблицы filer_clipboard
 --
--- Таблица django_sundries.filer_clipboard не содержит данных
+INSERT INTO filer_clipboard VALUES
+(1, 1);
 
 -- 
 -- Вывод данных для таблицы easy_thumbnails_thumbnail
@@ -1034,22 +1072,22 @@ INSERT INTO auth_permission VALUES
 (71, 'Can change tagged item', 18, 'change_taggeditem'),
 (72, 'Can delete tagged item', 18, 'delete_taggeditem'),
 (73, 'Can view tagged item', 18, 'view_taggeditem'),
-(74, 'Can add […Контент]', 19, 'add_tbcontentitem'),
-(75, 'Can change […Контент]', 19, 'change_tbcontentitem'),
-(76, 'Can delete […Контент]', 19, 'delete_tbcontentitem'),
-(77, 'Can view […Контент]', 19, 'view_tbcontentitem'),
-(78, 'Can add ru tag', 20, 'add_rutag'),
-(79, 'Can change ru tag', 20, 'change_rutag'),
-(80, 'Can delete ru tag', 20, 'delete_rutag'),
-(81, 'Can view ru tag', 20, 'view_rutag'),
-(82, 'Can add ru tagged item', 21, 'add_rutaggeditem'),
-(83, 'Can change ru tagged item', 21, 'change_rutaggeditem'),
-(84, 'Can delete ru tagged item', 21, 'delete_rutaggeditem'),
-(85, 'Can view ru tagged item', 21, 'view_rutaggeditem'),
-(86, 'Can add […Изображение]', 22, 'add_tbimage'),
-(87, 'Can change […Изображение]', 22, 'change_tbimage'),
-(88, 'Can delete […Изображение]', 22, 'delete_tbimage'),
-(89, 'Can view […Изображение]', 22, 'view_tbimage');
+(74, 'Can add ru tag', 19, 'add_rutag'),
+(75, 'Can change ru tag', 19, 'change_rutag'),
+(76, 'Can delete ru tag', 19, 'delete_rutag'),
+(77, 'Can view ru tag', 19, 'view_rutag'),
+(78, 'Can add ru tagged item', 20, 'add_rutaggeditem'),
+(79, 'Can change ru tagged item', 20, 'change_rutaggeditem'),
+(80, 'Can delete ru tagged item', 20, 'delete_rutaggeditem'),
+(81, 'Can view ru tagged item', 20, 'view_rutaggeditem'),
+(82, 'Can add […Изображение]', 21, 'add_tbimage'),
+(83, 'Can change […Изображение]', 21, 'change_tbimage'),
+(84, 'Can delete […Изображение]', 21, 'delete_tbimage'),
+(85, 'Can view […Изображение]', 21, 'view_tbimage'),
+(86, 'Can add […Контент]', 22, 'add_tbcontentitem'),
+(87, 'Can change […Контент]', 22, 'change_tbcontentitem'),
+(88, 'Can delete […Контент]', 22, 'delete_tbcontentitem'),
+(89, 'Can view […Контент]', 22, 'view_tbcontentitem');
 
 -- 
 -- Вывод данных для таблицы auth_group
@@ -1057,9 +1095,9 @@ INSERT INTO auth_permission VALUES
 -- Таблица django_sundries.auth_group не содержит данных
 
 -- 
--- Вывод данных для таблицы web_tbimage
+-- Вывод данных для таблицы web_tbcontentitem_kImages
 --
--- Таблица django_sundries.web_tbimage не содержит данных
+-- Таблица django_sundries.web_tbcontentitem_kImages не содержит данных
 
 -- 
 -- Вывод данных для таблицы taggit_taggeditem
@@ -1095,54 +1133,53 @@ INSERT INTO auth_permission VALUES
 -- Вывод данных для таблицы django_session
 --
 INSERT INTO django_session VALUES
-('tw9gvj7sq8k6myzxbzift9mpjpmji9mv', '.eJxVjDsOwjAQBe_iGln2JusPJX3OEK3XCw4gR4qTCnF3iJQC2jcz76VG2tYybk2WccrqrKw6_W6J-CF1B_lO9TZrnuu6TEnvij5o08Oc5Xk53L-DQq1862DYAaL43gJ1EG10lhmxF2FBBuyAnPVg2FNMmA1EF4yIw0D52iX1_gC6OTc9:1oFzpB:o0UqotL1MSxHBArBNVMyPh0yyGVa08pm35-yo0CcO0s', '2022-08-08 15:16:49.976612');
+('0ghr5l7bs8uge2fot0r68pu5eufu8v2j', '.eJxVjk0KwyAQhe_iukjGWGO67D5nEGcmNmlFIcZV6d1rIIt29eD9fLy3cL7ui6tl3tzK4iZAXH499PSa0xHw06dHlpTTvq0oj4o80yKnzHO8n90_wOLL0tbKsMJgNbHWQ4DeXkcewfgmhkhZ7JkNAqHpiC0MjB0BBlAaTMdWN2hYY-NFX3YXcuTzcKoxfr6b3UKL:1oG1Mg:2MyL1qeeAzKZl9QxiPHPBkJhVOU8f3uptHSu59wguSI', '2022-08-08 16:55:30.72951');
 
 -- 
 -- Вывод данных для таблицы django_migrations
 --
 INSERT INTO django_migrations VALUES
-(1, 'contenttypes', '0001_initial', '2022-07-25 15:13:37.932307'),
-(2, 'auth', '0001_initial', '2022-07-25 15:13:38.544023'),
-(3, 'admin', '0001_initial', '2022-07-25 15:13:38.701051'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2022-07-25 15:13:38.73151'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2022-07-25 15:13:38.758512'),
-(6, 'contenttypes', '0002_remove_content_type_name', '2022-07-25 15:13:38.843073'),
-(7, 'auth', '0002_alter_permission_name_max_length', '2022-07-25 15:13:38.913151'),
-(8, 'auth', '0003_alter_user_email_max_length', '2022-07-25 15:13:38.988387'),
-(9, 'auth', '0004_alter_user_username_opts', '2022-07-25 15:13:39.008385'),
-(10, 'auth', '0005_alter_user_last_login_null', '2022-07-25 15:13:39.067807'),
-(11, 'auth', '0006_require_contenttypes_0002', '2022-07-25 15:13:39.084955'),
-(12, 'auth', '0007_alter_validators_add_error_messages', '2022-07-25 15:13:39.104208'),
-(13, 'auth', '0008_alter_user_username_max_length', '2022-07-25 15:13:39.136234'),
-(14, 'auth', '0009_alter_user_last_name_max_length', '2022-07-25 15:13:39.169934'),
-(15, 'auth', '0010_alter_group_name_max_length', '2022-07-25 15:13:39.243473'),
-(16, 'auth', '0011_update_proxy_permissions', '2022-07-25 15:13:39.269039'),
-(17, 'auth', '0012_alter_user_first_name_max_length', '2022-07-25 15:13:39.301837'),
-(18, 'easy_thumbnails', '0001_initial', '2022-07-25 15:13:39.537488'),
-(19, 'easy_thumbnails', '0002_thumbnaildimensions', '2022-07-25 15:13:39.631802'),
-(20, 'filer', '0001_initial', '2022-07-25 15:13:40.641015'),
-(21, 'filer', '0002_auto_20150606_2003', '2022-07-25 15:13:40.676139'),
-(22, 'filer', '0003_thumbnailoption', '2022-07-25 15:13:40.724358'),
-(23, 'filer', '0004_auto_20160328_1434', '2022-07-25 15:13:40.8197'),
-(24, 'filer', '0005_auto_20160623_1425', '2022-07-25 15:13:40.87341'),
-(25, 'filer', '0006_auto_20160623_1627', '2022-07-25 15:13:41.351032'),
-(26, 'filer', '0007_auto_20161016_1055', '2022-07-25 15:13:41.365042'),
-(27, 'filer', '0008_auto_20171117_1313', '2022-07-25 15:13:41.383361'),
-(28, 'filer', '0009_auto_20171220_1635', '2022-07-25 15:13:41.45867'),
-(29, 'filer', '0010_auto_20180414_2058', '2022-07-25 15:13:41.476768'),
-(30, 'filer', '0011_auto_20190418_0137', '2022-07-25 15:13:41.694621'),
-(31, 'filer', '0012_file_mime_type', '2022-07-25 15:13:41.762715'),
-(32, 'filer', '0013_image_width_height_to_float', '2022-07-25 15:13:41.888381'),
-(33, 'filer', '0014_folder_permission_choices', '2022-07-25 15:13:41.919427'),
-(34, 'filer', '0015_alter_file_owner_alter_file_polymorphic_ctype_and_more', '2022-07-25 15:13:41.95611'),
-(35, 'sessions', '0001_initial', '2022-07-25 15:13:42.023562'),
-(36, 'taggit', '0001_initial', '2022-07-25 15:13:42.219592'),
-(37, 'taggit', '0002_auto_20150616_2121', '2022-07-25 15:13:42.257256'),
-(38, 'taggit', '0003_taggeditem_add_unique_index', '2022-07-25 15:13:42.288932'),
-(39, 'taggit', '0004_alter_taggeditem_content_type_alter_taggeditem_tag', '2022-07-25 15:13:42.323139'),
-(40, 'taggit', '0005_auto_20220424_2025', '2022-07-25 15:13:42.340477'),
-(41, 'web', '0001_initial', '2022-07-25 15:13:42.704424'),
-(42, 'web', '0002_alter_tbcontentitem_szcontentslug_and_more', '2022-07-25 15:13:42.802019');
+(1, 'contenttypes', '0001_initial', '2022-07-25 16:53:27.355269'),
+(2, 'auth', '0001_initial', '2022-07-25 16:53:27.978531'),
+(3, 'admin', '0001_initial', '2022-07-25 16:53:28.133948'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2022-07-25 16:53:28.156289'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2022-07-25 16:53:28.177279'),
+(6, 'contenttypes', '0002_remove_content_type_name', '2022-07-25 16:53:28.258138'),
+(7, 'auth', '0002_alter_permission_name_max_length', '2022-07-25 16:53:28.332252'),
+(8, 'auth', '0003_alter_user_email_max_length', '2022-07-25 16:53:28.405982'),
+(9, 'auth', '0004_alter_user_username_opts', '2022-07-25 16:53:28.427736'),
+(10, 'auth', '0005_alter_user_last_login_null', '2022-07-25 16:53:28.490095'),
+(11, 'auth', '0006_require_contenttypes_0002', '2022-07-25 16:53:28.505799'),
+(12, 'auth', '0007_alter_validators_add_error_messages', '2022-07-25 16:53:28.528875'),
+(13, 'auth', '0008_alter_user_username_max_length', '2022-07-25 16:53:28.561925'),
+(14, 'auth', '0009_alter_user_last_name_max_length', '2022-07-25 16:53:28.595558'),
+(15, 'auth', '0010_alter_group_name_max_length', '2022-07-25 16:53:28.671752'),
+(16, 'auth', '0011_update_proxy_permissions', '2022-07-25 16:53:28.697032'),
+(17, 'auth', '0012_alter_user_first_name_max_length', '2022-07-25 16:53:28.730289'),
+(18, 'easy_thumbnails', '0001_initial', '2022-07-25 16:53:28.954452'),
+(19, 'easy_thumbnails', '0002_thumbnaildimensions', '2022-07-25 16:53:29.056203'),
+(20, 'filer', '0001_initial', '2022-07-25 16:53:30.035847'),
+(21, 'filer', '0002_auto_20150606_2003', '2022-07-25 16:53:30.069268'),
+(22, 'filer', '0003_thumbnailoption', '2022-07-25 16:53:30.117232'),
+(23, 'filer', '0004_auto_20160328_1434', '2022-07-25 16:53:30.239226'),
+(24, 'filer', '0005_auto_20160623_1425', '2022-07-25 16:53:30.292337'),
+(25, 'filer', '0006_auto_20160623_1627', '2022-07-25 16:53:30.424036'),
+(26, 'filer', '0007_auto_20161016_1055', '2022-07-25 16:53:30.436625'),
+(27, 'filer', '0008_auto_20171117_1313', '2022-07-25 16:53:30.454305'),
+(28, 'filer', '0009_auto_20171220_1635', '2022-07-25 16:53:30.526822'),
+(29, 'filer', '0010_auto_20180414_2058', '2022-07-25 16:53:30.545631'),
+(30, 'filer', '0011_auto_20190418_0137', '2022-07-25 16:53:30.726465'),
+(31, 'filer', '0012_file_mime_type', '2022-07-25 16:53:30.77816'),
+(32, 'filer', '0013_image_width_height_to_float', '2022-07-25 16:53:30.897032'),
+(33, 'filer', '0014_folder_permission_choices', '2022-07-25 16:53:30.929213'),
+(34, 'filer', '0015_alter_file_owner_alter_file_polymorphic_ctype_and_more', '2022-07-25 16:53:30.967311'),
+(35, 'sessions', '0001_initial', '2022-07-25 16:53:31.037234'),
+(36, 'taggit', '0001_initial', '2022-07-25 16:53:31.248564'),
+(37, 'taggit', '0002_auto_20150616_2121', '2022-07-25 16:53:31.285734'),
+(38, 'taggit', '0003_taggeditem_add_unique_index', '2022-07-25 16:53:31.317329'),
+(39, 'taggit', '0004_alter_taggeditem_content_type_alter_taggeditem_tag', '2022-07-25 16:53:31.351789'),
+(40, 'taggit', '0005_auto_20220424_2025', '2022-07-25 16:53:31.366011'),
+(41, 'web', '0001_initial', '2022-07-25 16:53:31.805342');
 
 -- 
 -- Вывод данных для таблицы django_admin_log

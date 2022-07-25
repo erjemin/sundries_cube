@@ -77,10 +77,11 @@ class TbImage(models.Model):
     )
 
     def __unicode__(self):
-        return u"%02d: %s (%s)" % (self.id, self.flrImage.name, self.flrImage.file.size)
+        # return u"%02d: %s (%s)" % (self.id, self.flrImage.filename, self.flrImage._file_size)
+        return u"%02d: --" % self.id
 
     def __str__(self):
-        return u"%02d: %s" % (self.id, self.flrImage.name)
+        return u"%02d: ==" % self.id
 
     class Meta:
         verbose_name = "[…Изображение]"
@@ -110,16 +111,16 @@ class TbContentItem(models.Model):
         verbose_name=u"Пользователь",
         help_text=u"Пользователь, который добавил контент"
     )
+    kImages = models.ManyToManyField(
+        TbImage,
+        null=True, blank=True,
+        verbose_name=u"Картинка",
+        help_text=u"Картинка привязанная к контенту (к одной единице контента может быть привязано несколько картинок)"
+    )
     bContentPublish = models.BooleanField(
         default=True,
         verbose_name=u'Опубликовано',
         help_text=u'Опубликовано или нет'
-    )
-    kImages = models.ManyToManyField(
-        'TbImage',
-        null=True, blank=True,
-        verbose_name=u"Картинка",
-        help_text=u"Картинка привязанная к контенту (к одной единице контента может быть привязано несколько картинок)"
     )
     szContentTitle = models.CharField(
         max_length=255,
