@@ -18,10 +18,6 @@ import pytils
 
 # МАГИЯ: класс для транслитерации русскоязычных slug
 # рецепт взят отсюда: https://timonweb.com/django/russian-slugs-for-django-taggit/
-# WARNING: при первичной миграции вызывает ошибку (а значит при первичной миграции его, и обработчик
-# "through=RuTaggedItem" в моделях надо отключить).
-# КАК АЛЬТЕРНАТИВА: "втащить" батарейку django_tagit внутрь проекта и в моделях доработать метод save(),
-# но это не позволит в дальнейшем одновлять батарейку.
 class RuTag(Tag):
     class Meta:
         proxy = True
@@ -47,7 +43,6 @@ class TbImage(models.Model):
     # | bImagePublish    -- опубликовано или нет | tinyint(1) / NOT NULL |
     # | iSort            -- сортировка | int(11) / NOT NULL |
     # | flrImage_id      -- ссылка на картинку из filer | int(11) / DEFAULT NULL |
-    # | kContentItem_id  -- ссыкак на контент из TbContentItem | int(11) / DEFAULT NULL |
     # | dtImageTimeStamp -- штамп времени (скрытое поле) | datetime(6) / NOT NULL |
     # ============================================================
     bImagePublish = models.BooleanField(
@@ -73,13 +68,6 @@ class TbImage(models.Model):
         default=0,
         verbose_name="Порядок",
         help_text="Порядок вывода картинки в контенте"
-    )
-    kContentItem = models.ForeignKey(
-        'TbContentItem',
-        null=True, blank=True,
-        on_delete=models.SET_NULL,
-        verbose_name=u"Link к контенту",
-        help_text=u"Картинка привязана к контенту (к одной единице контента может быть привязано несколько картинок)"
     )
     dtImageTimeStamp = models.DateTimeField(
         auto_now=True,  # надо указать False при миграции, после вернуть в True
@@ -126,6 +114,12 @@ class TbContentItem(models.Model):
         default=True,
         verbose_name=u'Опубликовано',
         help_text=u'Опубликовано или нет'
+    )
+    kImages = models.ManyToManyField(
+        'TbImage',
+        null=True, blank=True,
+        verbose_name=u"Картинка",
+        help_text=u"Картинка привязанная к контенту (к одной единице контента может быть привязано несколько картинок)"
     )
     szContentTitle = models.CharField(
         max_length=255,
