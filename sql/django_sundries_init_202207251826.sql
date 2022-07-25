@@ -1,8 +1,8 @@
 ﻿--
--- Скрипт сгенерирован Devart dbForge Studio 2020 for MySQL, Версия 9.0.505.0
+-- Скрипт сгенерирован Devart dbForge Studio 2020 for MySQL, Версия 9.0.567.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 24.07.2022 23:44:07
--- Версия сервера: 10.5.9
+-- Дата скрипта: 25.07.2022 18:26:57
+-- Версия сервера: 10.5.10
 -- Версия клиента: 4.1
 --
 
@@ -247,7 +247,6 @@ CREATE TABLE web_tbcontentitem (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 2,
 CHARACTER SET utf8,
 COLLATE utf8_unicode_ci;
 
@@ -494,8 +493,6 @@ CREATE TABLE django_admin_log (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 3,
-AVG_ROW_LENGTH = 8192,
 CHARACTER SET utf8,
 COLLATE utf8_unicode_ci;
 
@@ -655,8 +652,6 @@ CREATE TABLE taggit_tag (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 3,
-AVG_ROW_LENGTH = 8192,
 CHARACTER SET utf8,
 COLLATE utf8_unicode_ci;
 
@@ -683,8 +678,6 @@ CREATE TABLE taggit_taggeditem (
   PRIMARY KEY (id)
 )
 ENGINE = INNODB,
-AUTO_INCREMENT = 3,
-AVG_ROW_LENGTH = 8192,
 CHARACTER SET utf8,
 COLLATE utf8_unicode_ci;
 
@@ -918,16 +911,16 @@ INSERT INTO django_content_type VALUES
 (6, 'sessions', 'session'),
 (17, 'taggit', 'tag'),
 (18, 'taggit', 'taggeditem'),
-(21, 'web', 'rutag'),
-(22, 'web', 'rutaggeditem'),
-(20, 'web', 'tbcontentitem'),
-(19, 'web', 'tbimage');
+(20, 'web', 'rutag'),
+(21, 'web', 'rutaggeditem'),
+(19, 'web', 'tbcontentitem'),
+(22, 'web', 'tbimage');
 
 -- 
 -- Вывод данных для таблицы auth_user
 --
 INSERT INTO auth_user VALUES
-(1, 'pbkdf2_sha256$320000$IPQb4Sl5MCE2Yr9yVTeTeT$qHrm+7txoMw0ufj8xQlnwO4Qd30EXf+3eIju4a4vmO8=', '2022-07-24 19:59:14.441369', 1, 'e-serg', '', '', 'erjemin@gmail.com', 1, 1, '2022-07-24 13:59:36.591093');
+(1, 'pbkdf2_sha256$320000$9iq3hntn4lgfga47cmTKSY$4CyRtTIy8yZcBYXJrZzxgzUgdH0fDSx7P1F1UdhF0D8=', '2022-07-25 15:16:49.972612', 1, 'e-serg', '', '', 'erjemin@gmail.com', 1, 1, '2022-07-25 15:16:47.05266');
 
 -- 
 -- Вывод данных для таблицы easy_thumbnails_source
@@ -937,15 +930,12 @@ INSERT INTO auth_user VALUES
 -- 
 -- Вывод данных для таблицы web_tbcontentitem
 --
-INSERT INTO web_tbcontentitem VALUES
-(1, 1, 'Color Palette Light Version (Victor)', '', '123123', 0, '2022-07-24 20:12:57.913858', '2022-07-24 20:28:50.150835', NULL, 1);
+-- Таблица django_sundries.web_tbcontentitem не содержит данных
 
 -- 
 -- Вывод данных для таблицы taggit_tag
 --
-INSERT INTO taggit_tag VALUES
-(1, 'длительность: 74', 'dlitelnost-74'),
-(2, 'цвет: сиреневый', 'tsvet-sirenevyij');
+-- Таблица django_sundries.taggit_tag не содержит данных
 
 -- 
 -- Вывод данных для таблицы filer_folder
@@ -1044,22 +1034,22 @@ INSERT INTO auth_permission VALUES
 (71, 'Can change tagged item', 18, 'change_taggeditem'),
 (72, 'Can delete tagged item', 18, 'delete_taggeditem'),
 (73, 'Can view tagged item', 18, 'view_taggeditem'),
-(74, 'Can add […Изображение]', 19, 'add_tbimage'),
-(75, 'Can change […Изображение]', 19, 'change_tbimage'),
-(76, 'Can delete […Изображение]', 19, 'delete_tbimage'),
-(77, 'Can view […Изображение]', 19, 'view_tbimage'),
-(78, 'Can add […Контент]', 20, 'add_tbcontentitem'),
-(79, 'Can change […Контент]', 20, 'change_tbcontentitem'),
-(80, 'Can delete […Контент]', 20, 'delete_tbcontentitem'),
-(81, 'Can view […Контент]', 20, 'view_tbcontentitem'),
-(82, 'Can add ru tag', 21, 'add_rutag'),
-(83, 'Can change ru tag', 21, 'change_rutag'),
-(84, 'Can delete ru tag', 21, 'delete_rutag'),
-(85, 'Can view ru tag', 21, 'view_rutag'),
-(86, 'Can add ru tagged item', 22, 'add_rutaggeditem'),
-(87, 'Can change ru tagged item', 22, 'change_rutaggeditem'),
-(88, 'Can delete ru tagged item', 22, 'delete_rutaggeditem'),
-(89, 'Can view ru tagged item', 22, 'view_rutaggeditem');
+(74, 'Can add […Контент]', 19, 'add_tbcontentitem'),
+(75, 'Can change […Контент]', 19, 'change_tbcontentitem'),
+(76, 'Can delete […Контент]', 19, 'delete_tbcontentitem'),
+(77, 'Can view […Контент]', 19, 'view_tbcontentitem'),
+(78, 'Can add ru tag', 20, 'add_rutag'),
+(79, 'Can change ru tag', 20, 'change_rutag'),
+(80, 'Can delete ru tag', 20, 'delete_rutag'),
+(81, 'Can view ru tag', 20, 'view_rutag'),
+(82, 'Can add ru tagged item', 21, 'add_rutaggeditem'),
+(83, 'Can change ru tagged item', 21, 'change_rutaggeditem'),
+(84, 'Can delete ru tagged item', 21, 'delete_rutaggeditem'),
+(85, 'Can view ru tagged item', 21, 'view_rutaggeditem'),
+(86, 'Can add […Изображение]', 22, 'add_tbimage'),
+(87, 'Can change […Изображение]', 22, 'change_tbimage'),
+(88, 'Can delete […Изображение]', 22, 'delete_tbimage'),
+(89, 'Can view […Изображение]', 22, 'view_tbimage');
 
 -- 
 -- Вывод данных для таблицы auth_group
@@ -1074,9 +1064,7 @@ INSERT INTO auth_permission VALUES
 -- 
 -- Вывод данных для таблицы taggit_taggeditem
 --
-INSERT INTO taggit_taggeditem VALUES
-(1, 1, 20, 1),
-(2, 1, 20, 2);
+-- Таблица django_sundries.taggit_taggeditem не содержит данных
 
 -- 
 -- Вывод данных для таблицы filer_thumbnailoption
@@ -1107,61 +1095,59 @@ INSERT INTO taggit_taggeditem VALUES
 -- Вывод данных для таблицы django_session
 --
 INSERT INTO django_session VALUES
-('vjk61jbo1aufv1cdu1g76szxh3zbqcc9', '.eJxVjMsOwiAQRf-FtSGQKS-X7v0GMsyAVA0kpV0Z_12bdKHbe865LxFxW2vcRl7izOIstDj9bgnpkdsO-I7t1iX1ti5zkrsiDzrktXN-Xg7376DiqN8aqJhkMymFTjvgVIr1HsgFi2RZESRgP0HIkysMk9KsAqDhpDmY7MT7A_b4ODc:1oFhkw:O9v_wHaob9ZgHtdABG7x-tXfHmRrXj1YWYQ7pdK6G2w', '2022-08-07 19:59:14.445057');
+('tw9gvj7sq8k6myzxbzift9mpjpmji9mv', '.eJxVjDsOwjAQBe_iGln2JusPJX3OEK3XCw4gR4qTCnF3iJQC2jcz76VG2tYybk2WccrqrKw6_W6J-CF1B_lO9TZrnuu6TEnvij5o08Oc5Xk53L-DQq1862DYAaL43gJ1EG10lhmxF2FBBuyAnPVg2FNMmA1EF4yIw0D52iX1_gC6OTc9:1oFzpB:o0UqotL1MSxHBArBNVMyPh0yyGVa08pm35-yo0CcO0s', '2022-08-08 15:16:49.976612');
 
 -- 
 -- Вывод данных для таблицы django_migrations
 --
 INSERT INTO django_migrations VALUES
-(1, 'contenttypes', '0001_initial', '2022-07-24 13:58:08.251428'),
-(2, 'auth', '0001_initial', '2022-07-24 13:58:08.955386'),
-(3, 'admin', '0001_initial', '2022-07-24 13:58:09.124887'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2022-07-24 13:58:09.13874'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2022-07-24 13:58:09.153477'),
-(6, 'contenttypes', '0002_remove_content_type_name', '2022-07-24 13:58:09.219301'),
-(7, 'auth', '0002_alter_permission_name_max_length', '2022-07-24 13:58:09.300408'),
-(8, 'auth', '0003_alter_user_email_max_length', '2022-07-24 13:58:09.388587'),
-(9, 'auth', '0004_alter_user_username_opts', '2022-07-24 13:58:09.410004'),
-(10, 'auth', '0005_alter_user_last_login_null', '2022-07-24 13:58:09.476784'),
-(11, 'auth', '0006_require_contenttypes_0002', '2022-07-24 13:58:09.490133'),
-(12, 'auth', '0007_alter_validators_add_error_messages', '2022-07-24 13:58:09.50963'),
-(13, 'auth', '0008_alter_user_username_max_length', '2022-07-24 13:58:09.537225'),
-(14, 'auth', '0009_alter_user_last_name_max_length', '2022-07-24 13:58:09.569881'),
-(15, 'auth', '0010_alter_group_name_max_length', '2022-07-24 13:58:09.658325'),
-(16, 'auth', '0011_update_proxy_permissions', '2022-07-24 13:58:09.684499'),
-(17, 'auth', '0012_alter_user_first_name_max_length', '2022-07-24 13:58:09.72126'),
-(18, 'easy_thumbnails', '0001_initial', '2022-07-24 13:58:09.963085'),
-(19, 'easy_thumbnails', '0002_thumbnaildimensions', '2022-07-24 13:58:10.063572'),
-(20, 'filer', '0001_initial', '2022-07-24 13:58:11.18352'),
-(21, 'filer', '0002_auto_20150606_2003', '2022-07-24 13:58:11.213913'),
-(22, 'filer', '0003_thumbnailoption', '2022-07-24 13:58:11.259474'),
-(23, 'filer', '0004_auto_20160328_1434', '2022-07-24 13:58:11.352459'),
-(24, 'filer', '0005_auto_20160623_1425', '2022-07-24 13:58:11.407119'),
-(25, 'filer', '0006_auto_20160623_1627', '2022-07-24 13:58:11.767505'),
-(26, 'filer', '0007_auto_20161016_1055', '2022-07-24 13:58:11.779015'),
-(27, 'filer', '0008_auto_20171117_1313', '2022-07-24 13:58:11.789686'),
-(28, 'filer', '0009_auto_20171220_1635', '2022-07-24 13:58:11.854515'),
-(29, 'filer', '0010_auto_20180414_2058', '2022-07-24 13:58:11.868632'),
-(30, 'filer', '0011_auto_20190418_0137', '2022-07-24 13:58:12.052735'),
-(31, 'filer', '0012_file_mime_type', '2022-07-24 13:58:12.118154'),
-(32, 'filer', '0013_image_width_height_to_float', '2022-07-24 13:58:12.234545'),
-(33, 'filer', '0014_folder_permission_choices', '2022-07-24 13:58:12.271604'),
-(34, 'filer', '0015_alter_file_owner_alter_file_polymorphic_ctype_and_more', '2022-07-24 13:58:12.314621'),
-(35, 'sessions', '0001_initial', '2022-07-24 13:58:12.364705'),
-(36, 'taggit', '0001_initial', '2022-07-24 13:58:12.577303'),
-(37, 'taggit', '0002_auto_20150616_2121', '2022-07-24 13:58:12.617415'),
-(38, 'taggit', '0003_taggeditem_add_unique_index', '2022-07-24 13:58:12.653792'),
-(39, 'taggit', '0004_alter_taggeditem_content_type_alter_taggeditem_tag', '2022-07-24 13:58:12.688224'),
-(40, 'taggit', '0005_auto_20220424_2025', '2022-07-24 13:58:12.702417'),
-(41, 'web', '0001_initial', '2022-07-24 15:09:00.888408'),
-(42, 'web', '0002_alter_tbcontentitem_szcontentslug_and_more', '2022-07-24 20:28:04.566238');
+(1, 'contenttypes', '0001_initial', '2022-07-25 15:13:37.932307'),
+(2, 'auth', '0001_initial', '2022-07-25 15:13:38.544023'),
+(3, 'admin', '0001_initial', '2022-07-25 15:13:38.701051'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2022-07-25 15:13:38.73151'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2022-07-25 15:13:38.758512'),
+(6, 'contenttypes', '0002_remove_content_type_name', '2022-07-25 15:13:38.843073'),
+(7, 'auth', '0002_alter_permission_name_max_length', '2022-07-25 15:13:38.913151'),
+(8, 'auth', '0003_alter_user_email_max_length', '2022-07-25 15:13:38.988387'),
+(9, 'auth', '0004_alter_user_username_opts', '2022-07-25 15:13:39.008385'),
+(10, 'auth', '0005_alter_user_last_login_null', '2022-07-25 15:13:39.067807'),
+(11, 'auth', '0006_require_contenttypes_0002', '2022-07-25 15:13:39.084955'),
+(12, 'auth', '0007_alter_validators_add_error_messages', '2022-07-25 15:13:39.104208'),
+(13, 'auth', '0008_alter_user_username_max_length', '2022-07-25 15:13:39.136234'),
+(14, 'auth', '0009_alter_user_last_name_max_length', '2022-07-25 15:13:39.169934'),
+(15, 'auth', '0010_alter_group_name_max_length', '2022-07-25 15:13:39.243473'),
+(16, 'auth', '0011_update_proxy_permissions', '2022-07-25 15:13:39.269039'),
+(17, 'auth', '0012_alter_user_first_name_max_length', '2022-07-25 15:13:39.301837'),
+(18, 'easy_thumbnails', '0001_initial', '2022-07-25 15:13:39.537488'),
+(19, 'easy_thumbnails', '0002_thumbnaildimensions', '2022-07-25 15:13:39.631802'),
+(20, 'filer', '0001_initial', '2022-07-25 15:13:40.641015'),
+(21, 'filer', '0002_auto_20150606_2003', '2022-07-25 15:13:40.676139'),
+(22, 'filer', '0003_thumbnailoption', '2022-07-25 15:13:40.724358'),
+(23, 'filer', '0004_auto_20160328_1434', '2022-07-25 15:13:40.8197'),
+(24, 'filer', '0005_auto_20160623_1425', '2022-07-25 15:13:40.87341'),
+(25, 'filer', '0006_auto_20160623_1627', '2022-07-25 15:13:41.351032'),
+(26, 'filer', '0007_auto_20161016_1055', '2022-07-25 15:13:41.365042'),
+(27, 'filer', '0008_auto_20171117_1313', '2022-07-25 15:13:41.383361'),
+(28, 'filer', '0009_auto_20171220_1635', '2022-07-25 15:13:41.45867'),
+(29, 'filer', '0010_auto_20180414_2058', '2022-07-25 15:13:41.476768'),
+(30, 'filer', '0011_auto_20190418_0137', '2022-07-25 15:13:41.694621'),
+(31, 'filer', '0012_file_mime_type', '2022-07-25 15:13:41.762715'),
+(32, 'filer', '0013_image_width_height_to_float', '2022-07-25 15:13:41.888381'),
+(33, 'filer', '0014_folder_permission_choices', '2022-07-25 15:13:41.919427'),
+(34, 'filer', '0015_alter_file_owner_alter_file_polymorphic_ctype_and_more', '2022-07-25 15:13:41.95611'),
+(35, 'sessions', '0001_initial', '2022-07-25 15:13:42.023562'),
+(36, 'taggit', '0001_initial', '2022-07-25 15:13:42.219592'),
+(37, 'taggit', '0002_auto_20150616_2121', '2022-07-25 15:13:42.257256'),
+(38, 'taggit', '0003_taggeditem_add_unique_index', '2022-07-25 15:13:42.288932'),
+(39, 'taggit', '0004_alter_taggeditem_content_type_alter_taggeditem_tag', '2022-07-25 15:13:42.323139'),
+(40, 'taggit', '0005_auto_20220424_2025', '2022-07-25 15:13:42.340477'),
+(41, 'web', '0001_initial', '2022-07-25 15:13:42.704424'),
+(42, 'web', '0002_alter_tbcontentitem_szcontentslug_and_more', '2022-07-25 15:13:42.802019');
 
 -- 
 -- Вывод данных для таблицы django_admin_log
 --
-INSERT INTO django_admin_log VALUES
-(1, '2022-07-24 20:12:57.933855', '1', '001: Color Palette Light Version (Victor)', 1, '[{"added": {}}]', 20, 1),
-(2, '2022-07-24 20:28:50.154475', '1', '001: Color Palette Light Version (Victor)', 2, '[{"changed": {"fields": ["\\u0421\\u043e\\u0434\\u0435\\u0440\\u0436\\u0430\\u043d\\u0438\\u0435"]}}]', 20, 1);
+-- Таблица django_sundries.django_admin_log не содержит данных
 
 -- 
 -- Вывод данных для таблицы auth_user_user_permissions
